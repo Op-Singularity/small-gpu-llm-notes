@@ -1,5 +1,6 @@
 # small-gpu-llm-notes
 
+[![checks](https://github.com/Op-Singularity/small-gpu-llm-notes/actions/workflows/checks.yml/badge.svg)](https://github.com/Op-Singularity/small-gpu-llm-notes/actions/workflows/checks.yml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![hardware](https://img.shields.io/badge/hardware-RTX%205060%20Laptop%208%20GB-informational)
 ![models](https://img.shields.io/badge/models-4B%20%7C%209B%20%7C%2035B%20MoE-informational)
