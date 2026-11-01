@@ -1,0 +1,51 @@
+name: checks
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Scripts compile
+        run: python -m compileall -q scripts
+
+      - name: kv_budget reproduces the documented numbers
+        run: |
+          set -euo pipefail
+          python scripts/kv_budget.py --layers 32 --full-attn 8 --kv-heads 4 \
+              --head-dim 256 --vram-mib 8151 --util 0.85 --weights-mib 3891 \
+              --check 76933 | tee kv.txt
+          # 32 KiB per token is the claim the whole note rests on
+          grep -q "32768 bytes" kv.txt
+          # calibrated against the engine's 76 933 tokens
+          grep -qE "formula error     : [+-]0\.[0-9]+ %" kv.txt
+
+      - name: options are wired up
+        run: python scripts/kv_budget.py --help | tee help.txt && grep -q "from-config" help.txt
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Every doc linked from the README exists
+        run: |
+          set -euo pipefail
+          missing=0
+          for f in $(grep -oE 'docs/[0-9a-z-]+\.md' README.md | sort -u); do
+            if [ ! -f "$f" ]; then echo "missing: $f"; missing=1; fi
+          done
+          exit $missing
+      - name: The measurements file parses
+        run: |
+          set -euo pipefail
+          head -1 results/measurements.csv | grep -q "runtime,model,container"
+          awk -F, 'NF<9 {print "bad row " NR ": " $0; exit 1}' results/measurements.csv
