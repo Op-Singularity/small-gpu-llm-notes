@@ -21,13 +21,19 @@ jobs:
       - name: kv_budget reproduces the documented numbers
         run: |
           set -euo pipefail
-          python scripts/kv_budget.py --layers 32 --full-attn 8 --kv-heads 4 \
-              --head-dim 256 --vram-mib 8151 --util 0.85 --weights-mib 3891 \
-              --check 76933 | tee kv.txt
-          # 32 KiB per token is the claim the whole note rests on
+          args="--layers 32 --full-attn 8 --kv-heads 4 --head-dim 256 \
+                --vram-mib 8151 --util 0.85 --weights-mib 3891 --check 76933"
+
+          # the claim the whole note rests on: 32 KiB of KV per token
+          python scripts/kv_budget.py $args | tee kv.txt
           grep -q "32768 bytes" kv.txt
-          # calibrated against the engine's 76 933 tokens
-          grep -qE "formula error     : [+-]0\.[0-9]+ %" kv.txt
+          # uncalibrated, the formula is ~26 % optimistic: activations and graphs
+          grep -qE "formula error     : \+26\." kv.txt
+
+          # feed the measured 633 MiB overhead back in; it must land on the engine's
+          # own 76 933 tokens
+          python scripts/kv_budget.py $args --overhead-mib 633 | tee kv-cal.txt
+          grep -qE "formula error     : \+0\." kv-cal.txt
 
       - name: options are wired up
         run: python scripts/kv_budget.py --help | tee help.txt && grep -q "from-config" help.txt
