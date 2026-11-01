@@ -18,6 +18,7 @@ works" but **why it does or does not**, with the numbers that decide it.
 |---|---|---:|---|---:|
 | Qwen3.5-4B AWQ | vLLM (WSL) | 3.76 GiB | all in VRAM | **53 tok/s** |
 | Qwen3.5-9B AWQ | vLLM | 8.45 GiB | does not fit | — |
+| **Qwen3.5-9B GGUF Q4_K_M** | **llama.cpp** | **5.28 GiB** | **all in VRAM** | **60 tok/s** |
 | Qwen3.6-35B-A3B (MoE) | Strata | 22.9 GB | 4.4 GiB VRAM + 18.75 GiB RAM | **27 tok/s** |
 
 The 35B is nine times the 4B and still answers at half its speed, because only

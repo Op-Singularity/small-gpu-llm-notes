@@ -12,3 +12,9 @@ strata,qwen3.6-35b-a3b,gguf-ud-q4-k-xl,22.9,8192,decode_8000,2.2,tok/s,
 strata,qwen3.6-35b-a3b,gguf-ud-q4-k-xl,22.9,8192,prompt_tps,202,tok/s,3647-token prompt
 strata,qwen3.6-35b-a3b,gguf-ud-q4-k-xl,22.9,8192,vram,6410,MiB,
 strata,qwen3.6-35b-a3b,gguf-ud-q4-k-xl,22.9,8192,experts_in_ram,18.75,GiB,0 experts in VRAM
+llama.cpp,qwen3.5-9b,gguf-q4-k-m,5.28,65536,decode,60.5,tok/s,llama-bench tg128 depth 0
+llama.cpp,qwen3.5-9b,gguf-q4-k-m,5.28,65536,decode_4k,51.7,tok/s,llama-bench tg128 @ d4096
+llama.cpp,qwen3.5-9b,gguf-q4-k-m,5.28,65536,decode_8k,49.3,tok/s,llama-bench tg128 @ d8192
+llama.cpp,qwen3.5-9b,gguf-q4-k-m,5.28,65536,prompt_tps,2505,tok/s,llama-bench pp512
+llama.cpp,qwen3.5-9b,gguf-q4-k-m,5.28,65536,vram,6062,MiB,weights fully resident
+llama.cpp,qwen3.5-9b,gguf-q4-k-m,5.28,65536,max_context,65536,tokens,loads with q8_0 KV
