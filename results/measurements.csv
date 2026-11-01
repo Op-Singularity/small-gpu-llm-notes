@@ -1,0 +1,14 @@
+runtime,model,container,weights_gib,context,metric,value,unit,note
+vllm,qwen3.5-4b,awq-4bit,3.76,32768,decode,53.3,tok/s,single stream median of 3
+vllm,qwen3.5-4b,awq-4bit,3.76,32768,ttft_20tok,118,ms,
+vllm,qwen3.5-4b,awq-4bit,3.76,32768,ttft_1404tok,651,ms,
+vllm,qwen3.5-4b,awq-4bit,3.76,32768,prompt_tps,2157,tok/s,
+vllm,qwen3.5-4b,awq-4bit,3.76,32768,vram,6450,MiB,
+vllm,qwen3.5-4b,awq-4bit,3.76,32768,kv_tokens,76933,tokens,reported by engine
+strata,qwen3.6-35b-a3b,gguf-ud-q4-k-xl,22.9,8192,decode_short,26.2,tok/s,<512 token context
+strata,qwen3.6-35b-a3b,gguf-ud-q4-k-xl,22.9,8192,decode_1200,9.9,tok/s,
+strata,qwen3.6-35b-a3b,gguf-ud-q4-k-xl,22.9,8192,decode_4000,3.5,tok/s,
+strata,qwen3.6-35b-a3b,gguf-ud-q4-k-xl,22.9,8192,decode_8000,2.2,tok/s,
+strata,qwen3.6-35b-a3b,gguf-ud-q4-k-xl,22.9,8192,prompt_tps,202,tok/s,3647-token prompt
+strata,qwen3.6-35b-a3b,gguf-ud-q4-k-xl,22.9,8192,vram,6410,MiB,
+strata,qwen3.6-35b-a3b,gguf-ud-q4-k-xl,22.9,8192,experts_in_ram,18.75,GiB,0 experts in VRAM
