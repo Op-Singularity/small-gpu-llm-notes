@@ -4,7 +4,7 @@
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![hardware](https://img.shields.io/badge/hardware-RTX%205060%20Laptop%208%20GB-informational)
 ![models](https://img.shields.io/badge/models-4B%20%7C%209B%20%7C%2035B%20MoE-informational)
-![docs](https://img.shields.io/badge/docs-6%20notes-lightgrey)
+![docs](https://img.shields.io/badge/docs-7%20notes-lightgrey)
 
 Field notes from trying to serve models far larger than the card allows — on one
 RTX 5060 Laptop (8 GB), 32 GB of RAM, Windows + WSL2.
@@ -34,6 +34,7 @@ The 35B is nine times the 4B and still answers at half its speed, because only
 | 04 | [GGUF vs AWQ](docs/04-gguf-vs-awq.md) | Why the same 9B is 2.3 GiB smaller as GGUF: the vocabulary stays BF16 in AWQ |
 | 05 | [**Making a 35B MoE start on 8 GB**](docs/05-strata-35b-on-8gb.md) | The interesting one: a constant 1159 MiB shortfall, traced to a staging buffer in the engine's source |
 | 06 | [All measurements](docs/06-measurements.md) | Every number in one place, with the machine state it was taken in |
+| 07 | [**The 9B that actually works: GGUF + llama.cpp**](docs/07-llama-cpp-on-8gb.md) | 60 tok/s, 64k context, fully resident — plus the three build walls on sm_120 |
 
 ## Reproduce the measurement
 
